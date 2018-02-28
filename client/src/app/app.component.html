@@ -1,14 +1,26 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <h1>{{ title }}</h1>
 
-<!-- this creates a google map on the page with the given lat/lng from -->
-<!-- the component as the initial center of the map: -->
-<agm-map [latitude]="lat" [longitude]="lng">
-  <agm-marker [latitude]="lat" [longitude]="lng"><agm-info-window>Info</agm-info-window></agm-marker>
-</agm-map>
+
+
+<div id="map"></div>
+
+
+
+<form (submit) = "onGetPets()" class="postForm">
+  <p>{{ breed }} | {{ gender }} | {{ age }}</p>
+    Breed: <input type="text" name="breed" [(ngModel)] = "breed"/>
+    <br>
+    Gender: <input type="text" name="gender" [(ngModel)] = "gender"/>
+    <br>
+    Size: <input type="text" name="size" [(ngModel)] = "size"/>
+    <br>
+
+    <input type="submit" value="Submit" />
+</form>
+
+<div *ngFor="let pet of pets" >
+  <img src="{{ pet.media.photos.photo[2].$t }}">
+</div>
 
 <router-outlet></router-outlet>

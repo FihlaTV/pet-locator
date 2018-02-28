@@ -5,24 +5,14 @@ import { FormControl } from '@angular/forms';
 import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
 
+import { HttpService } from './http.service';
+
+declare const google: any;
+declare var map: any;
+
 @Component({
   selector: 'app-root',
-  // styles: [`
-  //   agm-map {
-  //     height: 300px;
-  //   }
-  // `],
-  // template: `
-  //   <div class="container">
-  //     <h1>Angular 2 + Google Maps Places Autocomplete</h1>
-  //     <div class="form-group">
-  //       <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
-  //     </div>
-  //     <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
-  //       <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
-  //     </agm-map>
-  //   </div>
-  // `,
+  
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
@@ -32,70 +22,88 @@ import { MapsAPILoader } from '@agm/core';
 
 export class AppComponent {
 
-
+  errors = '';
   title: string = 'My first AGM project';
   lat: number = 37.3999;
   lng: number = -122.108401;
-  // public latitude: number;
-  // public longitude: number;
-  // public searchControl: FormControl;
-  // public zoom: number;
-  //
-  // @ViewChild("search")
-  // public searchElementRef: ElementRef;
-  //
-  // constructor(
-  //   private mapsAPILoader: MapsAPILoader,
-  //   private ngZone: NgZone
-  // ) {}
-  //
-  // ngOnInit() {
-  //   console.log("Trying to load a map")
-  //   //set google maps defaults
-  //   this.zoom = 4;
-  //   this.latitude = 39.8282;
-  //   this.longitude = -98.5795;
-  //
-  //   //create search FormControl
-  //   this.searchControl = new FormControl();
-  //
-  //   console.log("Trying to set current position")
-  //   //set current position
-  //   this.setCurrentPosition();
-  //
-  //   console.log("Trying to load places")
-  //   //load Places Autocomplete
-  //   this.mapsAPILoader.load().then(() => {
-  //     let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-  //       types: ["address"]
-  //     });
-  //     autocomplete.addListener("place_changed", () => {
-  //       this.ngZone.run(() => {
-  //         get the place result
-  //         let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-  //
-  //         //verify result
-  //         if (place.geometry === undefined || place.geometry === null) {
-  //           return;
-  //         }
-  //
-  //         //set latitude, longitude and zoom
-  //         this.latitude = place.geometry.location.lat();
-  //         this.longitude = place.geometry.location.lng();
-  //         this.zoom = 12;
-  //       });
-  //     });
-  //   });
-  // }
-  //
-  //
-  // private setCurrentPosition() {
-  //   if ("geolocation" in navigator) {
-  //     navigator.geolocation.getCurrentPosition((position) => {
-  //       this.latitude = position.coords.latitude;
-  //       this.longitude = position.coords.longitude;
-  //       this.zoom = 12;
-  //     });
-  //   }
-  // }
+
+  breed = '';
+  gender = '';
+  size = '';
+  pets = [];
+  map: any;
+  marker: any;
+
+  //google: any;
+
+
+  constructor(private _httpService: HttpService){}
+
+  ngOnInit() {
+
+    //   var map = new google.maps.Map(document.getElementById('map'), {
+    //   center: {lat: 37.3998683, lng: -122.1105936},
+    //   zoom: 13,
+    //   //styles: styles,
+    //   mapTypeControl: false
+    // });
+
+    var mapProp = {
+        center: new google.maps.LatLng(37.3998683, -122.1105936),
+        zoom: 10,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    this.map = new google.maps.Map(document.getElementById('map'), mapProp);
+
+  }
+
+  onGetPets(){
+    console.log("Trying to get pets");
+    let observable = this._httpService.getPets(this.breed, this.gender, this.size);
+    observable.subscribe(data => {
+      console.log("Got data from post back", data);
+      if (data['message'] == "Error") {
+         console.log("ERROR!!!");
+         this.errors = data['errors']
+        console.log("ERROR IS!!!", this.errors);
+      }
+      else {
+        this.pets = data._body.petfinder.pets.pet
+        console.log("Got data from post back", this.pets);
+        this.displayPets();
+
+      }
+    })
+  }
+
+
+displayPets() {
+    var self = this
+    var pet = new google.maps.Geocoder();
+    console.log(this.pets)
+    for (var i = 0; i < this.pets.length; i++) {
+     (function(i){
+     setTimeout(function(){
+       console.log(i)
+    pet.geocode( { 'address': self.pets[i].contact.zip.$t}, function (results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        self.pets[i].lat = results[0].geometry.location.lat();
+        self.pets[i].lng = results[0].geometry.location.lng();
+        console.log("***", self.pets[i].lat, self.pets[i].lng )
+        var marker = new google.maps.Marker({
+             position: {lat: self.pets[i].lat, lng: self.pets[i].lng},
+             map: self.map,
+             animation: google.maps.Animation.DROP,
+             title: 'Hello World!'
+           });
+        marker.setMap(self.map)
+       } });
+  }, i * 500);
+   })(i);
+    }
+}
+
+
+
+
 }

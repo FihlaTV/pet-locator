@@ -9,8 +9,10 @@ import { AgmCoreModule } from '@agm/core';
 import { FormsModule }    from '@angular/forms';
 import { ReactiveFormsModule }    from '@angular/forms';
 
+import { HttpService } from './http.service';
+import { HttpClientModule } from '@angular/common/http';
 
-
+import {JsonpModule, Jsonp, Response} from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -25,9 +27,11 @@ import { ReactiveFormsModule }    from '@angular/forms';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
+    JsonpModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
