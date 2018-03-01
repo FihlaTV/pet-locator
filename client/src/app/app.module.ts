@@ -13,10 +13,20 @@ import { HttpService } from './http.service';
 import { HttpClientModule } from '@angular/common/http';
 
 import {JsonpModule, Jsonp, Response} from '@angular/http';
+import { PetsComponent } from './pets/pets.component';
+import { FavoriteComponent } from './favorite/favorite.component';
+import { LoginComponent } from './login/login.component';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { DetailsComponent } from './details/details.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PetsComponent,
+    FavoriteComponent,
+    LoginComponent,
+    PagenotfoundComponent,
+    DetailsComponent
   ],
   imports: [
     AgmCoreModule.forRoot({

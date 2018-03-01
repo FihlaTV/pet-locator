@@ -1,0 +1,28 @@
+/*div {
+  all: initial;
+  * {
+    all: unset;
+  }
+}*/
+
+#map {
+        height: 300px;
+      }
+
+#pets {
+  text-align: left;
+  display: inline-block;
+  /*overflow: scroll;
+  height: 400px;
+  width: 700px;*/
+
+}
+img {
+  max-height: 200px;
+  display: inline;
+
+}
+.photos {
+  display: inline-block;
+
+}

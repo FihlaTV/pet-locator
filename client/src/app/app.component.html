@@ -3,24 +3,10 @@
 
 
 
-<div id="map"></div>
 
 
 
-<form (submit) = "onGetPets()" class="postForm">
-  <p>{{ breed }} | {{ gender }} | {{ age }}</p>
-    Breed: <input type="text" name="breed" [(ngModel)] = "breed"/>
-    <br>
-    Gender: <input type="text" name="gender" [(ngModel)] = "gender"/>
-    <br>
-    Size: <input type="text" name="size" [(ngModel)] = "size"/>
-    <br>
 
-    <input type="submit" value="Submit" />
-</form>
 
-<div *ngFor="let pet of pets" >
-  <img src="{{ pet.media.photos.photo[2].$t }}">
-</div>
 
 <router-outlet></router-outlet>

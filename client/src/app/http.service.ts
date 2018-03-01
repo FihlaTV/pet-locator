@@ -14,7 +14,7 @@ export class HttpService {
   }
 
   //getPets(breed, size, gender, zipcode) {
-  getPets(breed, gender, size) {
+  getPets(animal, gender, size, age) {
       // let pets = this._http.get("http://api.petfinder.com/breed.list?key=" + this.api_key + "&animal=dog&format=json");
       // pets.subscribe(data => {
       //   console.log("Got pets!", data);
@@ -34,7 +34,7 @@ export class HttpService {
       //       return res
       //     });
 
-      return this.jsonp.request("http://api.petfinder.com/pet.find?key=" + this.api_key + "&location=94040&sex=" + gender + "&size=S&animal=dog&format=json&callback=JSONP_CALLBACK")
+      return this.jsonp.request("http://api.petfinder.com/pet.find?key=" + this.api_key + "&location=94040&animal=" + animal + "&sex=" + gender + "&age=" + age + "&size=" + size + "&format=json&callback=JSONP_CALLBACK")
           .map(res => {
             return res
           });

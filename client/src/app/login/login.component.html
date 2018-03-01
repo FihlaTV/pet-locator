@@ -1,0 +1,13 @@
+<p>
+  login works!
+</p>
+
+<form (submit) = "onLogin()" class="postForm">
+  <p>{{ breed }} | {{ gender }} | {{ age }}</p>
+    Email: <input type="text" name="breed" [(ngModel)] = "breed"/>
+    <br>
+    Password: <input type="text" name="gender" [(ngModel)] = "gender"/>
+    <br>
+
+    <input type="submit" value="Submit" />
+</form>
