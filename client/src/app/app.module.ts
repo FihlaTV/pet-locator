@@ -19,6 +19,10 @@ import { LoginComponent } from './login/login.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { DetailsComponent } from './details/details.component';
 
+import { CustomReuseStrategy } from './reuse-strategy';
+import { RouteReuseStrategy } from '@angular/router';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +45,11 @@ import { DetailsComponent } from './details/details.component';
     JsonpModule,
     AppRoutingModule
   ],
-  providers: [HttpService],
+  providers: [
+    HttpService,
+    {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}
+    //CustomReuseStrategy
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
