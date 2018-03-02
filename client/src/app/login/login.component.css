@@ -1,0 +1,38 @@
+* {
+ margin: 0px;
+ padding: 0px;
+ font-family: sans-serif;
+}
+
+#wrapper {
+ width: 999px;
+ height: 850px;
+ margin: 0px auto;
+ padding-top: 20px;
+ padding-left: 10px;
+ padding-right: 10px;
+ padding-bottom: 5px;
+ box-sizing: border-box;
+ background-image: url("../../assets/images/Retriever2.jpg");
+}
+
+h1 {
+  font-family: 'Clicker Script', cursive;
+  font-size: 90px;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  font-weight:normal;
+}
+
+h4 {
+  font-family: 'Clicker Script', cursive;
+  font-size: 35px;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  font-weight:normal;
+}
+
+#log-reg {
+  width: 650px;
+  text-align: center;
+}
