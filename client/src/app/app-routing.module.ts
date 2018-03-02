@@ -8,10 +8,10 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
 const routes: Routes = [
   { path: 'pets',component: PetsComponent },
-  { path: 'favorite',component: FavoriteComponent },
+  { path: 'favorite/:id',component: FavoriteComponent },
   { path: 'login',component: LoginComponent },
   { path: 'details/:name/:breed/:photo/:description/:city/:email/:lat/:lng',component: DetailsComponent },
-  { path: '', pathMatch: 'full', redirectTo: '/pets' },
+  { path: '', pathMatch: 'full', redirectTo: '/login' },
   { path: '**', component: PagenotfoundComponent }
 ];
 
