@@ -1,6 +1,8 @@
 import { ActivatedRouteSnapshot, RouteReuseStrategy, DetachedRouteHandle } from '@angular/router';
 
 
+
+
 interface RouteStorageObject {
     snapshot: ActivatedRouteSnapshot;
     handle: DetachedRouteHandle;
@@ -16,11 +18,20 @@ export class CustomReuseStrategy {
     // ngRouteReuseStrategy() {
     //
     // }
+    private acceptedRoutes: string[] = ["pets"];
+    routesToCache: string[] = ["pets"];
 
     shouldDetach(route: ActivatedRouteSnapshot): boolean {
-        let detach: boolean = true;
-        console.log("detaching", route, "return: ", detach);
-        return detach;
+        // let detach: boolean = true;
+        // console.log("detaching", route, "return: ", detach);
+        // return detach;
+    //     if (this.acceptedRoutes.indexOf(route.routeConfig.path) > -1) {
+    //     console.log("detaching", route);
+    //     return true;
+    // } else {
+    //     return false; // will be "view/:resultId" when user navigates to result
+    // }
+      return this.routesToCache.indexOf(route.routeConfig.path) > -1;
     }
 
     store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle): void {
