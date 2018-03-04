@@ -1,15 +1,13 @@
-<p>
-  details works!
-</p>
 
 <div id="map"></div>
 
 <img src="{{ pet.photo }}">
-<p>{{pet.name}}</p>
-<p>{{pet.breed}}</p>
+<h3>{{pet.name}}</h3>
+<p>Breed: {{pet.breed}}</p>
 
-<p>{{pet.city}}</p>
-<p>{{pet.email}}</p>
+<p>City: {{pet.city}}</p>
+<p>Contact Email: {{pet.email}}</p>
 <p>{{pet.description}}</p>
 
-<a href [routerLink]="['../../../../../../../../../pets']">Back</a>
+<a href [routerLink]="['../../../../../../../../../pets']">Home</a>
+<a href [routerLink]="['../../../../../../../../../favorite', currentUser]">Favorite Pets</a>

@@ -1,3 +1,15 @@
-<p>
-  favorite works!
-</p>
+
+
+<p><a href [routerLink]="['../../pets']">Back</a></p>
+
+
+
+<div id="favorites" *ngFor="let favorite of favorites" >
+  <div class="photos">
+      <img src="{{ favorite.photo }}">
+      <p>{{favorite.name}}</p>
+
+      <a href [routerLink]="['../../details/', favorite.name, favorite.breed, favorite.photo, favorite.description, favorite.city, favorite.email, favorite.lat, favorite.lng]">Read more...</a>
+  </div>
+
+</div>

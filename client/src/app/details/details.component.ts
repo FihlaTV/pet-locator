@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { HttpService } from '../http.service';
 
 @Component({
   selector: 'app-details',
@@ -17,13 +18,16 @@ export class DetailsComponent implements OnInit {
   lat: any;
   lng: any;
   marker: any;
+  currentUser: any;
 
   constructor(
     private _route: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private _httpService: HttpService
   ) { }
 
   ngOnInit() {
+    this.currentUser = this._httpService.getUser();
     this._route.params.subscribe((params: Params) => {
       this.pet.name = params['name'];
       this.pet.breed = params['breed'];
@@ -38,7 +42,7 @@ export class DetailsComponent implements OnInit {
     })
     var mapProp = {
         center: new google.maps.LatLng(Number(this.pet.lat), Number(this.pet.lng)),
-        zoom: 13,
+        zoom: 10,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     this.map = new google.maps.Map(document.getElementById('map'), mapProp);

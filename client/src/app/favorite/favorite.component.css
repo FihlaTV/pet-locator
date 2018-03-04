@@ -1,0 +1,19 @@
+img {
+  max-height: 300px;
+  display: inline;
+  padding-left: 10px;
+}
+
+#favorites {
+  text-align: left;
+  display: inline-block;
+  /*overflow: scroll;
+  height: 400px;
+  width: 700px;*/
+
+}
+
+.photos {
+  display: inline-block;
+
+}

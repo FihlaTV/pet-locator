@@ -3,6 +3,7 @@ import { ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { HttpService } from '../http.service';
 
@@ -27,10 +28,28 @@ export class PetsComponent implements OnInit {
   pets = [];
   map: any;
   marker: any;
+  user: any;
+  currentUser: any;
+  error: any;
 
-  constructor(private _httpService: HttpService) { }
+  constructor(
+    private _httpService: HttpService,
+    private _route: ActivatedRoute,
+    private _router: Router
+  ) { }
 
   ngOnInit() {
+
+    this.currentUser = this._httpService.getUser();
+    console.log("CURRENT USER", this.currentUser);
+
+    this.user = {id: "", email: "", password: "", favorites: []}
+    this._route.params.subscribe((params: Params) => {
+      console.log("Params", params)
+      this.user.id = params['id'];
+      console.log("Current user", this.user.id)
+
+    })
 
     var mapProp = {
         center: new google.maps.LatLng(37.3998683, -122.1105936),
@@ -98,10 +117,10 @@ export class PetsComponent implements OnInit {
           self.pets[i].marker.setMap(self.map)
 
           console.log("Marker", self.pets[i].marker)
-          self.pets[i].marker.setAnimation(google.maps.Animation.BOUNCE);
-          setTimeout(function() {
-              self.pets[i].marker.setAnimation(null);
-          }, 750);
+          // self.pets[i].marker.setAnimation(google.maps.Animation.BOUNCE);
+          // setTimeout(function() {
+          //     self.pets[i].marker.setAnimation(null);
+          // }, 750);
 
          } });
     }, i * 700);
@@ -119,5 +138,22 @@ export class PetsComponent implements OnInit {
 
 
   }
+  onFavorite(name, breed, photo, description, city, email, lat, lng){
+    var favoritePet = {name: name, breed: breed, photo: photo, description: description, city: city, email: email, lat: lat, lng: lng}
+    console.log("FAVORITED", favoritePet, this.currentUser);
+    let observable = this._httpService.favorite(favoritePet, this.currentUser);
+    observable.subscribe(data => {
+      console.log("Got data from post back", data);
+      if (data['message'] == "Error") {
+        console.log("ERROR!!!");
+        this.error = data['error'].errors.name.message
+        console.log("ERROR IS!!!", this.error);
+      }
+      else {
+        console.log("Successfully favorited the pet", favoritePet);
+      }
+      //this.getAuthors();
+    })
 
+  }
 }

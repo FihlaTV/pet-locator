@@ -1,68 +1,81 @@
-<p>
-  pets works!
-</p>
 
 <div id="map"></div>
 
 <form (submit) = "onGetPets()" class="postForm">
 
+    <div id="search-terms">
+        <div class="r-buttons">
+          <label>
+          <input type="radio" name="animal" [(ngModel)] = "animal" value="dog">
+          Dog
+          </label><br/>
+          <label>
+          <input type="radio" name="animal" [(ngModel)] = "animal" value="cat">
+          Cat
+          </label><br/>
+          <br>
 
-    <label>
-    <input type="radio" name="animal" [(ngModel)] = "animal" value="dog">
-    Dog
-    </label><br/>
-    <label>
-    <input type="radio" name="animal" [(ngModel)] = "animal" value="cat">
-    Cat
-    </label><br/>
-    <br>
-    <label>
-    <input type="radio" name="gender" [(ngModel)] = "gender" value="M">
-    Male
-    </label><br/>
-    <label>
-    <input type="radio" name="gender" [(ngModel)] = "gender" value="F">
-    Female
-    </label><br/>
-
-    <label>
-    <input type="radio" name="size" [(ngModel)] = "size" value="S">
-    Small
-    </label><br/>
-    <label>
-    <input type="radio" name="size" [(ngModel)] = "size" value="M">
-    Medium
-    </label><br/>
-    <label>
-    <input type="radio" name="size" [(ngModel)] = "size" value="L">
-    Large
-    </label><br/>
-
-    <br>
-    <label>
-    <input type="radio" name="age" [(ngModel)] = "age" value="Baby">
-    Baby
-    </label><br/>
-    <label>
-    <input type="radio" name="age" [(ngModel)] = "age" value="Young">
-    Young
-    </label><br/>
-    <label>
-    <input type="radio" name="age" [(ngModel)] = "age" value="Adult">
-    Adult
-    </label><br/>
-    <label>
-    <input type="radio" name="age" [(ngModel)] = "age" value="Senior">
-    Senior
-    </label><br/>
-
-    <input type="submit" value="Submit" />
+        </div>
+        <div class="r-buttons">
+          <label>
+          <input type="radio" name="gender" [(ngModel)] = "gender" value="M">
+          Male
+          </label><br/>
+          <label>
+          <input type="radio" name="gender" [(ngModel)] = "gender" value="F">
+          Female
+          </label><br/>
+        </div>
+        <div class="r-buttons">
+          <label>
+          <input type="radio" name="size" [(ngModel)] = "size" value="S">
+          Small
+          </label><br/>
+          <label>
+          <input type="radio" name="size" [(ngModel)] = "size" value="M">
+          Medium
+          </label><br/>
+          <label>
+          <input type="radio" name="size" [(ngModel)] = "size" value="L">
+          Large
+          </label><br/>
+      </div>
+      <div class="r-buttons">
+          <br>
+          <label>
+          <input type="radio" name="age" [(ngModel)] = "age" value="Baby">
+          Baby
+          </label><br/>
+          <label>
+          <input type="radio" name="age" [(ngModel)] = "age" value="Young">
+          Young
+          </label><br/>
+          <label>
+          <input type="radio" name="age" [(ngModel)] = "age" value="Adult">
+          Adult
+          </label><br/>
+          <label>
+          <input type="radio" name="age" [(ngModel)] = "age" value="Senior">
+          Senior
+          </label><br/>
+      </div>
+      <div class="r-buttons">
+          <input type="submit" value="Submit" />
+      </div>
+      <div id="fav-pets">
+          <p><a href [routerLink]="['../favorite/', currentUser]">Favorite Pets</a></p>
+      </div>
+    </div>
 </form>
+
+
 
 <div id="pets" *ngFor="let pet of pets" >
   <div class="photos">
       <a (click)="onImgClick(pet)"><img src="{{ pet.media.photos.photo[2].$t }}"></a>
       <p>{{pet.name.$t}}</p>
-      <a href [routerLink]="['../details/', pet.name.$t, pet.breeds.breed.$t, pet.media.photos.photo[2].$t, pet.description.$t, pet.contact.city.$t, pet.contact.email.$t, pet.lat, pet.lng]">Read more...</a>
+
+      <p><a href [routerLink]="['../details/', pet.name.$t, pet.breeds.breed.$t, pet.media.photos.photo[2].$t, pet.description.$t, pet.contact.city.$t, pet.contact.email.$t, pet.lat, pet.lng]">Read more...</a><p>
+      <button (click)="onFavorite(pet.name.$t, pet.breeds.breed.$t, pet.media.photos.photo[2].$t, pet.description.$t, pet.contact.city.$t, pet.contact.email.$t, pet.lat, pet.lng)">Favorite</button>
   </div>
 </div>
