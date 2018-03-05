@@ -5,9 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
-import { AgmCoreModule } from '@agm/core';
+//import { AgmCoreModule } from '@agm/core';
 import { FormsModule }    from '@angular/forms';
-import { ReactiveFormsModule }    from '@angular/forms';
+//import { ReactiveFormsModule }    from '@angular/forms';
 
 import { HttpService } from './http.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -33,14 +33,14 @@ import { RouteReuseStrategy } from '@angular/router';
     DetailsComponent
   ],
   imports: [
-    AgmCoreModule.forRoot({
-      apiKey: "AIzaSyBebk9Y71UREa0DtUb9zxwjH4i9vaJDIEM",
-      libraries: ["places"]
-    }),
+    // AgmCoreModule.forRoot({
+    //   apiKey: "AIzaSyBebk9Y71UREa0DtUb9zxwjH4i9vaJDIEM",
+    //   libraries: ["places"]
+    // }),
     BrowserModule,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
+    //ReactiveFormsModule,
     HttpClientModule,
     JsonpModule,
     AppRoutingModule
